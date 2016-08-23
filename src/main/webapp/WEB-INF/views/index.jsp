@@ -20,7 +20,7 @@
 			<label for="name">Name </label> <span class="label label-danger"
 				data-ng-show="submitted && helpForm.name.$error.required">Required!</span>
 			<input type="text" name="name" data-ng-model="name"
-				class="form-control" required /><br /> <label for="mid">Employee
+				class="form-control" required /><br /> <label for="mid">Manager
 				Id </label> <span class="label label-danger"
 				data-ng-show="submitted && helpForm.name.$error.required">Required!</span>
 			<input type="text" name="mid" data-ng-model="mid"
