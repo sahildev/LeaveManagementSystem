@@ -13,6 +13,15 @@ public class Leaves {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	int leaveId;
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Leaves [leaveId=" + leaveId + ", empId=" + empId + ", fromdate=" + fromdate + ", toDate=" + toDate
+				+ ", Reason=" + Reason + ", permission=" + permission + "]";
+	}
+
 	int empId;
 	String fromdate;
 	String toDate;

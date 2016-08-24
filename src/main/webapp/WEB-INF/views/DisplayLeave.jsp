@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>display</title>
+<title>Display Leave Status</title>
 </head>
 <body>
-
+<p>Your leave has been submitted</p>
 </body>
 </html>
