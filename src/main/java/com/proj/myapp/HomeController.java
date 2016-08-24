@@ -53,7 +53,7 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		**/
-		/*
+		
 		EntityManager em = null;
 		EntityTransaction tx = null;
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory("LeaveManagementSystem");
@@ -68,7 +68,7 @@ public class HomeController {
 		em.persist(emp);
 		tx.commit();
 		em.close();
-		*/
+		
 		return "HomePage";
 	}
 	
