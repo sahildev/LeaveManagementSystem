@@ -10,7 +10,22 @@
 		<properties>
 
 
-			<property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect" />
+<!-- Configuring JDBC properties -->
+      <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@//localhost:1521/XE" />
+      <property name="javax.persistence.jdbc.user" value="sahil1" />
+      <property name="javax.persistence.jdbc.password" value="sahil1" />
+      <property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver" />
+      
+ <!-- Hibernate properties -->
+      <property name="hibernate.show_sql" value="true" />
+      <property name="hibernate.format_sql" value="true" />
+      <property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect" />
+      <property name="hibernate.hbm2ddl.auto" value="validate" />
+      
+      	
+
+
+		<!-- 	<property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect" />
 			<property name="hibernate.connection.driver_class" value="oracle.jdbc.OracleDriver" />
 			<property name="hibernate.connection.url" value="jdbc:oracle:thin:@//localhost:1521/XE" />
 			<property name="hibernate.connection.username" value="sahil1" />
@@ -19,7 +34,7 @@
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 			<property name="hibernate.show_sql" value="true" />
 
-			<property name="hibernate.format_sql" value="true" />
+			<property name="hibernate.format_sql" value="true" /> -->
 
 		</properties>
 

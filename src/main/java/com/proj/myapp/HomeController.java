@@ -9,11 +9,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -55,16 +57,16 @@ public class HomeController {
 		 * 
 		 * model.addAttribute("serverTime", formattedDate );
 		 **/
-		/*
-		 * EntityManager em = null; EntityTransaction tx = null;
-		 * EntityManagerFactory factory =
-		 * Persistence.createEntityManagerFactory("LeaveManagementSystem"); em =
-		 * factory.createEntityManager(); tx = em.getTransaction(); tx.begin();
-		 * Employee emp = new Employee(); emp.setEmpName(name); emp.setmId(mid);
-		 * emp.setPassword("password"); emp.setStatus("allowed");
-		 * em.persist(emp); tx.commit(); em.close();
-		 */
-		EntityManager em = null;
+		
+		 /* EntityManager em = null; EntityTransaction tx = null;
+		  EntityManagerFactory factory =
+		  Persistence.createEntityManagerFactory("LeaveManagementSystem"); 
+		  em =factory.createEntityManager(); tx = em.getTransaction(); tx.begin();
+		  Employee emp = new Employee(); emp.setEmpName(name); emp.setmId(mid);
+		 emp.setPassword("password"); emp.setStatus("allowed");
+		 em.persist(emp); tx.commit(); em.close();*/
+		 
+	EntityManager em = null;
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory("LeaveManagementSystem");
 		em = factory.createEntityManager();
 		TypedQuery<Employee> q2 = em.createQuery("from Employee", Employee.class);
@@ -159,4 +161,16 @@ public class HomeController {
 		//return mv;
 	}
 
+	@RequestMapping(value="/cancelLeave", method = RequestMethod.GET)
+	@Transactional
+	public String cancelLeave(Model model, @RequestParam("1") String empId) {
+		//System.out.println(empId);
+		System.out.println("In cancelLeave Controller");
+		EntityManager em = null;
+		EntityManagerFactory factory = Persistence.createEntityManagerFactory("LeaveManagementSystem");
+		em = factory.createEntityManager();
+		Query q = em.createQuery("delete Leaves where empid ="+empId);
+		q.executeUpdate();
+		return "redirect:/leaveHistory";
+	}
 }

@@ -23,21 +23,43 @@ table tr:nth-child(even) {
 </style>
 </head>
 <body>
-	<h2>Admin home</h2>
-
-<%
-			//out.println(request.getAttribute("leave"));
-Iterator<String> itrs;
-int i;
-List data = (List)request.getAttribute("leave");
-request.setAttribute("data", data);
-out.println(data);
-
-/* for (i = 0; i < 2; i++) {
-	Leaves l = (Leaves) data.get(i);
-	out.println(l.getFromdate()); */
-
+	<h2>Leave History</h2>
+	<table border="0">
+		<tr>
+			<th>Employee Id</th>
+			<th>From Date</th>
+			<th>To Date</th>
+			<th>Reason</th>
+			<th>Permission</th>
+			<th>Cancel</th>
+		</tr>
+		<%
+			List<Leaves> data = (List) request.getAttribute("leave");
+			request.setAttribute("data", data);
+			//data now contains a leave object which can be accessed as a list
+			//out.println(data);
+			for (Leaves l : data) {
 		%>
+		<tr>
+			<form action="cancelLeave" method="get">
+			<td><input id="1" name="1" type="text" size="15"
+				value="<%out.println(l.getEmpId());%>" readonly="readonly" /></td>
+			<td><input id="2" name="2" type="text" size="15"
+				value="<%out.println(l.getFromdate());%>" readonly="readonly" /></td>
+			<td><input id="3" name="3" type="text" size="15"
+				value="<%out.println(l.getToDate());%>" readonly="readonly"/></td>
+			<td><input id="4" name="4" type="text" size="15"
+				value="<%out.println(l.getReason());%>" readonly="readonly" /></td>
+			<td><input id="5" name="5" type="text" size="15"
+				value="<%out.println(l.getPermission());%>" readonly="readonly"/></td>
+			<td><input type="submit" value="Cancel"/></td>
+				</form>
+		</tr>
+		
 
+		<%
+			}
+		%>
+	</table>
 </body>
 </html>
