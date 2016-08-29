@@ -57,16 +57,7 @@ public class HomeController {
 		 * 
 		 * model.addAttribute("serverTime", formattedDate );
 		 **/
-		
-		 /* EntityManager em = null; EntityTransaction tx = null;
-		  EntityManagerFactory factory =
-		  Persistence.createEntityManagerFactory("LeaveManagementSystem"); 
-		  em =factory.createEntityManager(); tx = em.getTransaction(); tx.begin();
-		  Employee emp = new Employee(); emp.setEmpName(name); emp.setmId(mid);
-		 emp.setPassword("password"); emp.setStatus("allowed");
-		 em.persist(emp); tx.commit(); em.close();*/
-		 
-	EntityManager em = null;
+		EntityManager em = null;
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory("LeaveManagementSystem");
 		em = factory.createEntityManager();
 		TypedQuery<Employee> q2 = em.createQuery("from Employee", Employee.class);
@@ -124,7 +115,7 @@ public class HomeController {
 		em = factory.createEntityManager();
 		tx = em.getTransaction();
 		tx.begin();
-		Leaves leave= new Leaves();
+		Leaves leave = new Leaves();
 		leave.setEmpId(1);
 		leave.setFromdate(fromdate);
 		leave.setToDate(todate);
@@ -133,21 +124,21 @@ public class HomeController {
 		em.persist(leave);
 		tx.commit();
 		em.close();
-		
+
 		return "DisplayLeave";
 
 	}
 
 	@RequestMapping("/leaveStatus")
 	public ModelAndView update() {
-		//System.out.println("In leaveStatus Controller");
+		// System.out.println("In leaveStatus Controller");
 		ModelAndView mv = new ModelAndView("leaveStatus");
 		return mv;
 	}
 
 	@RequestMapping("/leaveHistory")
 	public String delete(Model model) {
-		//System.out.println("In leaveHistory Controller");
+		// System.out.println("In leaveHistory Controller");
 		EntityManager em = null;
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory("LeaveManagementSystem");
 		em = factory.createEntityManager();
@@ -155,22 +146,56 @@ public class HomeController {
 		List<Leaves> l = q2.getResultList();
 		model.addAttribute("leave", l);
 		return "History";
-		
-		//ModelAndView mv = new ModelAndView("leaveHistory");
-		//mv.addObject("LeaveHistory",l);
-		//return mv;
+
+		// ModelAndView mv = new ModelAndView("leaveHistory");
+		// mv.addObject("LeaveHistory",l);
+		// return mv;
 	}
 
-	@RequestMapping(value="/cancelLeave", method = RequestMethod.GET)
+	@RequestMapping(value = "/cancelLeave", method = RequestMethod.GET)
 	@Transactional
 	public String cancelLeave(Model model, @RequestParam("1") String empId) {
-		//System.out.println(empId);
+		// System.out.println(empId);
 		System.out.println("In cancelLeave Controller");
 		EntityManager em = null;
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory("LeaveManagementSystem");
 		em = factory.createEntityManager();
-		Query q = em.createQuery("delete Leaves where empid ="+empId);
+		Query q = em.createQuery("delete Leaves where empid =" + empId);
 		q.executeUpdate();
 		return "redirect:/leaveHistory";
+	}
+
+	/* Admin controllers */
+	@RequestMapping("/admin")
+	public ModelAndView adminHome() {
+		ModelAndView mv = new ModelAndView("adminHome");
+		return mv;
+	}
+
+	@RequestMapping("/adminAddUserController")
+	public ModelAndView adminAddUserController() {
+		ModelAndView mv = new ModelAndView("adminAddUser");
+		return mv;
+	}
+
+	@RequestMapping(value = "/adminAddUser", method = RequestMethod.GET)
+	public String adminAddUser(Model model, @RequestParam("empname") String empname,
+			@RequestParam("managerid") int managerid, @RequestParam("password") String password,
+			@RequestParam("status") String status) {
+		EntityManager em = null;
+		EntityTransaction tx = null;
+		EntityManagerFactory factory = Persistence.createEntityManagerFactory("LeaveManagementSystem");
+		em = factory.createEntityManager();
+		tx = em.getTransaction();
+		tx.begin();
+		Employee emp = new Employee();
+		emp.setEmpName(empname);
+		emp.setmId(managerid);
+		emp.setPassword(password);
+		emp.setStatus(status);
+		em.persist(emp);
+		tx.commit();
+		em.close();
+		return "redirect:/admin";
 	}
 }
