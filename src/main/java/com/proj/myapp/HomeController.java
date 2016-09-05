@@ -12,6 +12,9 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -29,7 +32,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class HomeController {
 
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-
+	private static SessionFactory factory;
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
@@ -155,13 +158,29 @@ public class HomeController {
 	@RequestMapping(value = "/cancelLeave", method = RequestMethod.GET)
 	@Transactional
 	public String cancelLeave(Model model, @RequestParam("1") String empId) {
-		// System.out.println(empId);
+		/*System.out.println(empId);
 		System.out.println("In cancelLeave Controller");
 		EntityManager em = null;
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("LeaveManagementSystem");
-		em = factory.createEntityManager();
-		Query q = em.createQuery("delete Leaves where empid =" + empId);
-		q.executeUpdate();
+		EntityManagerFactory factory = Persistence.createEntityManagerFactory("LeaveManagementSystem");*/
+		
+		Session session; = factory.openSession();
+		/*Transaction tx = null;
+		try {
+		   tx = session.beginTransaction();
+		   Leaves leave =(Leaves)session.get(Leaves.class, empId); 
+         session.delete(leave); 
+		   tx.commit();
+		}
+		catch (Exception e) {
+		   if (tx!=null) tx.rollback();
+		   e.printStackTrace(); 
+		}finally {
+		   session.close();
+		}
+		*/
+		/*em = factory.createEntityManager();
+		int a = em.createQuery("delete from Leaves").executeUpdate();
+		System.out.println(a);*/
 		return "redirect:/leaveHistory";
 	}
 
